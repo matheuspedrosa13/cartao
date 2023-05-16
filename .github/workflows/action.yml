@@ -35,6 +35,6 @@ jobs:
     - name: Executando o teste
       run: |
             cd src
-            java EventoTeste
+            java CatracaTeste.java
             
     
