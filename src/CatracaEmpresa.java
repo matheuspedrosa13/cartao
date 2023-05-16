@@ -3,14 +3,16 @@ import java.util.List;
 
 public class CatracaEmpresa {
     private boolean acessoLiberado;
+    private List<String> cartoesAcessoPermitido;
 
     public CatracaEmpresa() {
         this.acessoLiberado = false;
+        this.cartoesAcessoPermitido = new ArrayList<>();
     }
 
     public void passarCartao(FuncionarioEmpresa funcionario) {
         if (validarCartao(funcionario)) {
-            liberarAcesso();
+            liberarAcesso(funcionario);
             System.out.println("Acesso permitido. Bem-vindo, " + funcionario.getNome() + "!");
         } else {
             bloquearAcesso();
@@ -19,38 +21,30 @@ public class CatracaEmpresa {
     }
 
     private boolean validarCartao(FuncionarioEmpresa funcionario) {
-        // Simulação de validação do cartão
-        String numeroCartaoFuncionario = funcionario.getNumeroCartao(); // Obtém o número do cartão do funcionário
-        boolean cartaoValido = false;
+        String numeroCartaoFuncionario = funcionario.getNumeroCartao();
+        return cartoesAcessoPermitido.contains(numeroCartaoFuncionario);
+    }
 
-        // Verifica se o número do cartão está na lista de cartões válidos da empresa
-        List<String> cartoesValidos = obterCartoesValidos(); // Método que retorna a lista de cartões válidos da empresa
-        if (cartoesValidos.contains(numeroCartaoFuncionario)) {
-            cartaoValido = true;
+    private void liberarAcesso(FuncionarioEmpresa funcionario) {
+        String numeroCartaoFuncionario = funcionario.getNumeroCartao();
+        if (!cartoesAcessoPermitido.contains(numeroCartaoFuncionario)) {
+            cartoesAcessoPermitido.add(numeroCartaoFuncionario);
         }
-
-        return cartaoValido;
-    }
-
-    private List<String> obterCartoesValidos() {
-        // Simulação da obtenção da lista de cartões válidos da empresa
-        List<String> cartoesValidos = new ArrayList<>();
-        cartoesValidos.add("1234567890"); // Exemplo de cartão válido
-        cartoesValidos.add("9876543210"); // Exemplo de cartão válido
-
-        return cartoesValidos;
-    }
-
-    private void liberarAcesso() {
         acessoLiberado = true;
     }
 
     private void bloquearAcesso() {
+        cartoesAcessoPermitido.clear();
         acessoLiberado = false;
     }
 
     public boolean isAcessoLiberado() {
         return acessoLiberado;
+    }
+
+    public void sair(FuncionarioEmpresa funcionario) {
+        String numeroCartaoFuncionario = funcionario.getNumeroCartao();
+        cartoesAcessoPermitido.remove(numeroCartaoFuncionario);
     }
 }
 

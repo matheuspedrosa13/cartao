@@ -15,4 +15,3 @@ public class FuncionarioEmpresa {
         return numeroCartao;
     }
 }
-

@@ -1,20 +1,34 @@
-import java.util.UUID;
-
 public class Main {
     public static void main(String[] args) {
-        // Criando uma instância de CatracaEmpresa
         CatracaEmpresa catraca = new CatracaEmpresa();
 
-        // Criando instâncias de Funcionario
-        FuncionarioEmpresa funcionario1 = new FuncionarioEmpresa("João", "1234567890");
-        FuncionarioEmpresa funcionario2 = new FuncionarioEmpresa("Maria", "9876543210");
+        System.out.println("Bem-vindo à empresa!");
 
-        // Testando a catraca com os funcionários
-        catraca.passarCartao(funcionario1); // Acesso negado, cartão não está na lista de cartões válidos
-        catraca.passarCartao(funcionario2); // Acesso permitido, cartão está na lista de cartões válidos
+        FuncionarioEmpresa funcionario1 = new FuncionarioEmpresa("João Silva", "1234567890");
+        FuncionarioEmpresa funcionario2 = new FuncionarioEmpresa("Maria Souza", "9876543210");
 
-        // Verificando o status de acesso após o teste
-        boolean acessoLiberado = catraca.isAcessoLiberado();
-        System.out.println("Status de acesso: " + (acessoLiberado ? "Liberado" : "Bloqueado"));
+        System.out.println("Registro do funcionário: " + funcionario1);
+        catraca.passarCartao(funcionario1);
+        if (catraca.isAcessoLiberado()) {
+            System.out.println("Entrada liberada!");
+        } else {
+            System.out.println("Entrada negada!");
+        }
+
+        System.out.println("Registro do funcionário: " + funcionario2);
+        catraca.passarCartao(funcionario2);
+        if (catraca.isAcessoLiberado()) {
+            System.out.println("Entrada liberada!");
+        } else {
+            System.out.println("Entrada negada!");
+        }
+
+        System.out.println("Registro do funcionário: " + funcionario1);
+        catraca.sair(funcionario1);
+        System.out.println("Saída registrada!");
+
+        System.out.println("Registro do funcionário: " + funcionario2);
+        catraca.sair(funcionario2);
+        System.out.println("Saída registrada!");
     }
 }
