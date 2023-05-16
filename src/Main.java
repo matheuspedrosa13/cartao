@@ -1,34 +1,45 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
         CatracaEmpresa catraca = new CatracaEmpresa();
 
         System.out.println("Bem-vindo à empresa!");
 
-        FuncionarioEmpresa funcionario1 = new FuncionarioEmpresa("João Silva", "1234567890");
-        FuncionarioEmpresa funcionario2 = new FuncionarioEmpresa("Maria Souza", "9876543210");
+        while (true) {
+            System.out.print("Digite o número do cartão do funcionário: ");
+            String numeroCartao = scanner.nextLine();
 
-        System.out.println("Registro do funcionário: " + funcionario1);
-        catraca.passarCartao(funcionario1);
-        if (catraca.isAcessoLiberado()) {
-            System.out.println("Entrada liberada!");
-        } else {
-            System.out.println("Entrada negada!");
+            System.out.print("Digite o nome do funcionário: ");
+            String nome = scanner.nextLine();
+
+            FuncionarioEmpresa funcionario = new FuncionarioEmpresa(nome, numeroCartao);
+
+            System.out.print("Deseja permitir a entrada (E) ou saída (S) do funcionário? ");
+            String opcao = scanner.nextLine().toUpperCase();
+
+            if (opcao.equals("E")) {
+                catraca.passarCartao(funcionario);
+                if (catraca.isAcessoLiberado()) {
+                    System.out.println("Entrada liberada!");
+                } else {
+                    System.out.println("Entrada negada!");
+                }
+            } else if (opcao.equals("S")) {
+                catraca.sair(funcionario);
+                System.out.println("Saída registrada!");
+            } else {
+                System.out.println("Opção inválida!");
+            }
+
+            System.out.print("Deseja continuar? (S/N) ");
+            String resposta = scanner.nextLine().toUpperCase();
+            if (resposta.equals("N")) {
+                break;
+            }
         }
-
-        System.out.println("Registro do funcionário: " + funcionario2);
-        catraca.passarCartao(funcionario2);
-        if (catraca.isAcessoLiberado()) {
-            System.out.println("Entrada liberada!");
-        } else {
-            System.out.println("Entrada negada!");
-        }
-
-        System.out.println("Registro do funcionário: " + funcionario1);
-        catraca.sair(funcionario1);
-        System.out.println("Saída registrada!");
-
-        System.out.println("Registro do funcionário: " + funcionario2);
-        catraca.sair(funcionario2);
-        System.out.println("Saída registrada!");
     }
 }
