@@ -36,4 +36,14 @@ jobs:
       run: |
             cd src
             java CatracaTeste
+            
+    - uses: mr-smithers-excellent/docker-build-push@v6
+      name: Build & push Docker image
+      with:
+          image: pedrosalindo/cartao_aula
+          tags: 1.0, 1.1
+          registry: docker.io
+          dockerfile: dockerfile
+          username: ${{secrets.DOCKER_USER}}
+          password: ${{secrets.DOCKER_PASSWORD}}
     
