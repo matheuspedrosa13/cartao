@@ -32,9 +32,8 @@ jobs:
             cd src 
             javac -cp . Main.java
     
-    - name: Executando o teste
+    - name: Executando teste
       run: |
             cd src
-            java CatracaTeste.java
-            
+            java CatracaTeste
     
