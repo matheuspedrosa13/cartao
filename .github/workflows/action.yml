@@ -37,11 +37,16 @@ jobs:
             cd src
             java CatracaTeste
             
+    #Exemplo 1 para versionamento
+    - name: Gerando Versao
+      run: echo ${{ github.run_number }}
+      
+      
     - uses: mr-smithers-excellent/docker-build-push@v6
       name: Build & push Docker image
       with:
           image: pedrosalindo/cartao_aula
-          tags: 1.0, 1.1
+          tags: latest, ${{ github.run_number }}
           registry: docker.io
           dockerfile: dockerfile
           username: ${{secrets.DOCKER_USER}}
